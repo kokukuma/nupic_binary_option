@@ -138,7 +138,7 @@ def runModel(inputFilePath, high_model, low_model, print_result=True):
 
 def binary_option():
     #inputFilePath = "./datasets/usdjpy_2001_01.csv"
-    inputFilePath = "./datasets/usdjpy_2001_2005.csv"
+    inputFilePath = "./datasets/usdjpy_2001_2005_ohlc.csv"
     #inputFilePath = "./datasets/usdjpy_2006_2007.csv"
 
     print 'create model ...'
