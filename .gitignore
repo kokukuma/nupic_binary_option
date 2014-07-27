@@ -1,0 +1,5 @@
+*.pyc
+*.pkl
+learned_model/
+swarm/
+USDJPY.*
