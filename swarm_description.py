@@ -26,6 +26,12 @@ SWARM_DESCRIPTION = {
       "fieldType": "datetime"
     },
     {
+      "fieldName": "open",
+      "fieldType": "float",
+      "maxValue": 200.0,
+      "minValue": 0.0
+    },
+    {
       "fieldName": "high",
       "fieldType": "float",
       "maxValue": 200.0,
@@ -33,6 +39,12 @@ SWARM_DESCRIPTION = {
     },
     {
       "fieldName": "low",
+      "fieldType": "float",
+      "maxValue": 200.0,
+      "minValue": 0.0
+    },
+    {
+      "fieldName": "close",
       "fieldType": "float",
       "maxValue": 200.0,
       "minValue": 0.0
@@ -45,7 +57,7 @@ SWARM_DESCRIPTION = {
       {
         "info": "binary option",
         #"source": "file://datasets/usdjpy_2001_01.csv",
-        "source": "file://datasets/usdjpy_2001_2005.csv",
+        "source": "file://datasets/usdjpy_2001_2005_ohlc.csv",
         "columns": [
           "*"
         ]
@@ -59,6 +71,6 @@ SWARM_DESCRIPTION = {
     ],
     "predictedField": "low",
   },
-  "iterationCount": -1,
+  "iterationCount": 10,
   "swarmSize": "large"
 }

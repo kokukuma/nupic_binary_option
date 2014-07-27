@@ -19,13 +19,13 @@ def main():
     USDJPY,20010102,230400,114.44,114.44,114.44,114.44,4
 
     """
-    csv_file_name = 'usdjpy_2001_01.csv'
-    start_time = datetime.datetime.strptime("20010102230300", DATETIME_FORMAT)
-    end_time   = datetime.datetime.strptime("20020102230300", DATETIME_FORMAT)
-
-    # csv_file_name = 'usdjpy_2001_2005.csv'
+    # csv_file_name = 'usdjpy_2001_01.csv'
     # start_time = datetime.datetime.strptime("20010102230300", DATETIME_FORMAT)
-    # end_time   = datetime.datetime.strptime("20060102230300", DATETIME_FORMAT)
+    # end_time   = datetime.datetime.strptime("20020102230300", DATETIME_FORMAT)
+
+    csv_file_name = 'usdjpy_2001_2005_ohlc.csv'
+    start_time = datetime.datetime.strptime("20010102230300", DATETIME_FORMAT)
+    end_time   = datetime.datetime.strptime("20060102230300", DATETIME_FORMAT)
 
     # csv_file_name = 'usdjpy_2006_2007.csv'
     # start_time = datetime.datetime.strptime("20060102230300", DATETIME_FORMAT)
@@ -38,7 +38,8 @@ def main():
         csvReader = csv.reader(f)
         csvReader.next()
 
-        date_h_data = defaultdict(list)
+        date_h_data      = defaultdict(list)
+        date_h_opn_close = defaultdict(list)
         for row in csvReader:
             timestamp = datetime.datetime.strptime(row[1]+row[2], DATETIME_FORMAT)
 
@@ -47,25 +48,39 @@ def main():
             if end_time < timestamp:
                 break
             date_h  = datetime.datetime.strftime(timestamp, "%Y%m%d%H")
-            date_h_data[date_h].append([row[4], row[5]])
+
+            # high/low
+            date_h_data[date_h].append([ row[4], row[5]])
+
+            # oepn/close
+            if len(date_h_opn_close[date_h]) == 0:
+                date_h_opn_close[date_h].append(row[3])
+            if len(date_h_opn_close[date_h]) == 1:
+                date_h_opn_close[date_h].append(row[6])
+            date_h_opn_close[date_h][1] = row[6]
 
 
     # 時間の中でhigh/lowを取り出す.
     print 'Converting ...'
     csv_data = []
     for date_h, data in date_h_data.items():
-        high_list = numpy.array(data)[:,0]
-        low_list  = numpy.array(data)[:,1]
         timestamp = datetime.datetime.strptime(date_h, "%Y%m%d%H")
-        csv_data.append([timestamp, max(high_list), min(low_list)])
+
+        high_value = max(numpy.array(data)[:,0])
+        low_value  = min(numpy.array(data)[:,1])
+
+        open_value = date_h_opn_close[date_h][0]
+        close_value = date_h_opn_close[date_h][1]
+
+        csv_data.append([timestamp, open_value, high_value, low_value, close_value])
 
 
     # csvに保存
     with open(csv_file_name, 'wb') as f:
         csvWriter = csv.writer(f)
-        csvWriter.writerow(['timestamp', 'high', 'low'])
-        csvWriter.writerow(['datetime', 'float', 'float'])
-        csvWriter.writerow(['T', '', ''])
+        csvWriter.writerow(['timestamp', 'open', 'high', 'low', 'close'])
+        csvWriter.writerow(['datetime', 'float', 'float', 'float', 'float'])
+        csvWriter.writerow(['T', '', '', '', ''])
         for d in sorted(csv_data):
             print d[0], d[1], d[2]
             csvWriter.writerow(d)
