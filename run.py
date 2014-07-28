@@ -133,9 +133,11 @@ def runModel(inputFilePath, high_model, low_model, print_result=True):
         for row in csv_data:
             counter += 1
             if (counter % 720 == 0) :
+                print
                 print i, data['timestamp'],
                 print "Read %i lines..." % counter
                 ep.reset()
+                counter = 0
 
             data, now_value = get_formated_data(row)
 
