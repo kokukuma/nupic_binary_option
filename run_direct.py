@@ -288,26 +288,28 @@ def runModel(inputFilePath, low_model):
 
     # region_sate.show(low_model)
 
+    return low_model
+
 def binary_option():
+    from nupic.frameworks.opf.model import Model
     inputFilePath = "./datasets/usdjpy_2001_01_ohlc.csv"
     #inputFilePath = "./datasets/usdjpy_2001_ohlc.csv"
     #inputFilePath = "./datasets/usdjpy_2001_2005_ohlc.csv"
 
     print 'create model ...'
     #low_model  = createModel("low")
-    low_model  = createModel("high_low")
 
-    # TODO: 学習したモデルの保存ができてない.
-    # if os.path.exists('./learned_model'):
-    #     low_model.load('./learned_model/low/')
-
+    if os.path.exists('./learned_model'):
+        low_model  = Model.load('./learned_model/low/')
+    else:
+        low_model  = createModel("high_low")
 
     print 'run Model ...'
-    runModel(inputFilePath, low_model)
+    low_model = runModel(inputFilePath, low_model)
 
     # TODO: 学習したモデルの保存ができてない.
-    # print 'pickle dump ...'
-    # low_model.save(os.path.abspath('./learned_model/low/'))
+    print 'pickle dump ...'
+    low_model.save(os.path.abspath('./learned_model/low/'))
 
 
 if __name__ == "__main__":

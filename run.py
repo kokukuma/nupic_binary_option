@@ -281,28 +281,29 @@ def runModel(inputFilePath, high_model, low_model, print_result=True):
 
 
 def binary_option():
+    from nupic.frameworks.opf.model import Model
     inputFilePath = "./datasets/usdjpy_2001_01_ohlc.csv"
     #inputFilePath = "./datasets/usdjpy_2001_ohlc.csv"
     #inputFilePath = "./datasets/usdjpy_2001_2005_ohlc.csv"
     #inputFilePath = "./datasets/usdjpy_2006_2007.csv"
 
     print 'create model ...'
-    high_model = createModel("high")
-    low_model  = createModel("low")
-
     # TODO: 学習したモデルの保存ができてない.
-    # if os.path.exists('./learned_model'):
-    #     high_model.load('./learned_model/high/')
-    #     low_model.load('./learned_model/low/')
+    if os.path.exists('./learned_model'):
+        high_model = Model.load('./learned_model/high/')
+        low_model  = Model.load('./learned_model/low/')
+    else:
+        high_model = createModel("high")
+        low_model  = createModel("low")
 
 
     print 'run Model ...'
     runModel(inputFilePath, high_model, low_model, True)
 
     # TODO: 学習したモデルの保存ができてない.
-    # print 'pickle dump ...'
-    # high_model.save(os.path.abspath('./learned_model/high/'))
-    # low_model.save(os.path.abspath('./learned_model/low/'))
+    print 'pickle dump ...'
+    high_model.save(os.path.abspath('./learned_model/high/'))
+    low_model.save(os.path.abspath('./learned_model/low/'))
 
 
 if __name__ == "__main__":
