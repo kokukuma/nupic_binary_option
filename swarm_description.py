@@ -28,26 +28,26 @@ SWARM_DESCRIPTION = {
     {
       "fieldName": "open",
       "fieldType": "float",
-      "maxValue": 200.0,
-      "minValue": 0.0
+      "maxValue": 150.0,
+      "minValue": 90.0
     },
     {
       "fieldName": "high",
       "fieldType": "float",
-      "maxValue": 200.0,
-      "minValue": 0.0
+      "maxValue": 150.0,
+      "minValue": 90.0
     },
     {
       "fieldName": "low",
       "fieldType": "float",
-      "maxValue": 200.0,
-      "minValue": 0.0
+      "maxValue": 150.0,
+      "minValue": 90.0
     },
     {
       "fieldName": "close",
       "fieldType": "float",
-      "maxValue": 200.0,
-      "minValue": 0.0
+      "maxValue": 150.0,
+      "minValue": 90.0
     },
   ],
   "streamDef": {
@@ -56,8 +56,9 @@ SWARM_DESCRIPTION = {
     "streams": [
       {
         "info": "binary option",
-        #"source": "file://datasets/usdjpy_2001_01.csv",
-        "source": "file://datasets/usdjpy_2001_2005_ohlc.csv",
+        "source": "file://datasets/usdjpy_2001_01_ohlc.csv",
+        #"source": "file://datasets/usdjpy_2001_2005_ohlc.csv",
+        #"source": "file://datasets/usdjpy_2001_ohlc.csv",
         "columns": [
           "*"
         ]
@@ -67,10 +68,11 @@ SWARM_DESCRIPTION = {
   "inferenceType": "TemporalAnomaly",
   "inferenceArgs": {
     "predictionSteps": [
-      1
+      24
     ],
     "predictedField": "low",
   },
-  "iterationCount": 10,
-  "swarmSize": "large"
+  "iterationCount": 20,
+  "maxModels": 10,
+  "swarmSize": "small"
 }

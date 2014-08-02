@@ -11,7 +11,8 @@ def writeModelParams(modelParams):
     outDir = os.path.join(os.getcwd(), 'model_params')
     if not os.path.isdir(outDir):
         os.mkdir(outDir)
-    outPath = os.path.join(outDir, "model_params.py")
+    #outPath = os.path.join(outDir, "model_params.py")
+    outPath = os.path.join(outDir, "tmp.py")
 
     pp = pprint.PrettyPrinter(indent=2)
 
