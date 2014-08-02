@@ -250,7 +250,7 @@ def runModel(inputFilePath, low_model):
     before_value = None
     before_predvalue = []
 
-    for i in range(20):
+    for i in range(1):
         for row in csv_data:
             counter += 1
             if (counter % 10 == 0) :
@@ -307,7 +307,6 @@ def binary_option():
     print 'run Model ...'
     low_model = runModel(inputFilePath, low_model)
 
-    # TODO: 学習したモデルの保存ができてない.
     print 'pickle dump ...'
     low_model.save(os.path.abspath('./learned_model/low/'))
 

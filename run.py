@@ -300,7 +300,6 @@ def binary_option():
     print 'run Model ...'
     runModel(inputFilePath, high_model, low_model, True)
 
-    # TODO: 学習したモデルの保存ができてない.
     print 'pickle dump ...'
     high_model.save(os.path.abspath('./learned_model/high/'))
     low_model.save(os.path.abspath('./learned_model/low/'))
