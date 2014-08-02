@@ -19,9 +19,13 @@ def main():
     USDJPY,20010102,230400,114.44,114.44,114.44,114.44,4
 
     """
-    csv_file_name = 'usdjpy_2001_ohlc.csv'
+    csv_file_name = 'usdjpy_2001_01_ohlc.csv'
     start_time = datetime.datetime.strptime("20010102230300", DATETIME_FORMAT)
-    end_time   = datetime.datetime.strptime("20020102230300", DATETIME_FORMAT)
+    end_time   = datetime.datetime.strptime("20010202230300", DATETIME_FORMAT)
+
+    # csv_file_name = 'usdjpy_2001_ohlc.csv'
+    # start_time = datetime.datetime.strptime("20010102230300", DATETIME_FORMAT)
+    # end_time   = datetime.datetime.strptime("20020102230300", DATETIME_FORMAT)
 
     # csv_file_name = 'usdjpy_2001_2005_ohlc.csv'
     # start_time = datetime.datetime.strptime("20010102230300", DATETIME_FORMAT)
