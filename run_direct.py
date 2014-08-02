@@ -13,7 +13,7 @@ from nupic.frameworks.opf.clamodel import CLAModel
 import nupic_output
 import nupic_anomaly_output as nupic_output
 
-from model_params import model_params_direct
+from model_params import model_params_direct as model_params
 
 from collections import defaultdict
 
