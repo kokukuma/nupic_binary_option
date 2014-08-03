@@ -138,6 +138,8 @@ class Evaluate(object):
             ok_rate = float(sum(self.ok_ng[-self.rate_slice:]))/(len(self.ok_ng[-self.rate_slice:])+1)
             print "%10s, %5s, %10s, %5.4f, %5.4f" % (data['timestamp'], predict, evalue, ok_rate, anomalyScore)
 
+        self.ok_ng = self.ok_ng[-self.rate_slice:]
+
 
     def evaluate_one(self, before, now, predict_list, before_predvalue):
         """
@@ -215,7 +217,7 @@ def runModel(inputFilePath, low_model):
     before_value = None
     before_predvalue = []
 
-    for i in range(1):
+    for i in range(2):
         for row in csv_data:
             counter += 1
             if (counter % 10 == 0) :
@@ -236,7 +238,7 @@ def runModel(inputFilePath, low_model):
             high_low_prediction  = low_result.inferences["multiStepBestPredictions"][1]
             anomalyScore    = low_result.inferences["anomalyScore"]
 
-            # evaluate high/low
+            # # evaluate high/low
             if before_value:
                 print i,counter,
                 ep.evaluate_high_low(data, high_low_prediction, anomalyScore)
@@ -252,15 +254,22 @@ def runModel(inputFilePath, low_model):
 def binary_option():
     from nupic.frameworks.opf.model import Model
 
-    # inputFilePath = "./datasets/usdjpy_2001_01_ohlc.csv"
+    #inputFilePath = "./datasets/usdjpy_2001_01_ohlc.csv"
     # inputFilePath = "./datasets/usdjpy_2001_ohlc.csv"
     #inputFilePath = "./datasets/usdjpy_2001_2005_ohlc.csv"
     inputFilePath = "./datasets/usdjpy_2006_2007.csv"
 
+
+    # predict_mode: disableLearning and dont save the model
+    predict_mode = True
+
     if os.path.exists('./learned_model_direct'):
         print 'read learned_model'
         low_model  = Model.load('./learned_model_direct/low/')
-        #low_model.disableLearning()
+        if predict_mode:
+            low_model.disableLearning()
+        else:
+            low_model.enableLearning()
 
     else:
         print 'create model ...'
@@ -269,8 +278,9 @@ def binary_option():
     print 'run Model ...'
     low_model = runModel(inputFilePath, low_model)
 
-    print 'pickle dump ...'
-    low_model.save(os.path.abspath('./learned_model_direct/low/'))
+    if not predict_mode:
+        print 'pickle dump ...'
+        low_model.save(os.path.abspath('./learned_model_direct/low/'))
 
 
 if __name__ == "__main__":
