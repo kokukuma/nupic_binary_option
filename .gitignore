@@ -1,5 +1,6 @@
 *.pyc
 *.pkl
-learned_model/
 swarm/
 USDJPY.*
+learned_model/
+learned_model_direct/
