@@ -31,14 +31,8 @@ nupic_binary_option
 1. [パラメータ影響調査](docs/opf_experiment2.md) 未
   + 実装と途中経過の結果を確認し疑問を解消.
   + パラメータの結果に対する影響を把握する.
-1. [予測をするためのモデル構築](docs/opf_binary_option.md)   未
+1. [予測をするためのモデル構築](docs/opf_binary_option.md)
   + high/low直接予測
-  + 複数点トレンド予測.
-  + 2003-2005の時間単位のヒストリカルデータ(closeのみ)
-  + 2002-2005の時間単位のヒストリカルデータ(open/high/low/close)
-  + 2002-2005の時間単位のヒストリカルデータ(open/high/low/close) max-min調整
-  + 2002-2005の日単位のヒストリカルデータ(open/high/low/close)
-
 
 
 
