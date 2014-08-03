@@ -89,7 +89,7 @@ opf_code_reading
   + 入出力の分だけ設定する.
   + ScalarEncoder/DeltaEncoder以外では, 必要なパラメータがまた変わってくる.
 
-  | param          |                                                |
+  | param          |  内容                                          |
   | -------        | --------------                                 |
   | fieldname      | フィールド名                                   |
   | maxval         | 値が取りうるmax値. 超えると, maxvalが使われる. |
@@ -105,7 +105,7 @@ opf_code_reading
   + spacial poolerの設定で必要なパラメータ.
   + 詳しくは, nupic/region/research/spatial_pooler.py を参照.
 
-  | param                      |                                                           |
+  | param                      |  内容                                                     |
   | -------                    | --------------                                            |
   | columnCount                | カラム数                                                  |
   | inputWidth                 | encoderのnに調整される.                                   |
@@ -122,6 +122,8 @@ opf_code_reading
   + temporal poolerの設定で必要なパラメータ.
   + 詳しくは, nupic/region/research/TP.py を参照.
 
+  | param                 |   内容                                                                        |
+  | -------               | --------------                                                                |
   | cellsPerColumn        | １カラムに含まれるセル数                                                      |
   | columnCount           | SPのカラム数と同じものを.                                                     |
   | inputWidth            | columnCountと同じものを.                                                      |
