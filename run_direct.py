@@ -101,17 +101,19 @@ class Evaluate(object):
 
     def __init__(self, predict_number=1):
         self.number = predict_number
-        self.ok_count = [0 for i in range(self.number)]
-        self.ng_count = [0 for i in range(self.number)]
         self.color = { 'green': '\033[32m',
                        'yellow': '\033[33m',
                        'red': '\033[31m',
                        'clear': '\033[0m'}
-        self.ok_ng = []
 
-    def reset(self):
-        self.ok_count = [0 for i in range(self.number)]
-        self.ng_count = [0 for i in range(self.number)]
+        self.rate_slice    = 720 # 30日
+
+        self.ok_ng = []
+        self.result = defaultdict(list)
+
+    # def reset(self):
+    #     self.ok_count = [0 for i in range(self.number)]
+    #     self.ng_count = [0 for i in range(self.number)]
 
 
     def evaluate_high_low(self, data, predict, anomalyScore):
@@ -120,7 +122,6 @@ class Evaluate(object):
         """
         #anomaly_limit = 0.2
         anomaly_limit = 1.0
-        rate_slice    = 720 # 30日
 
         if anomalyScore > anomaly_limit:
             evalue = self.color['green'] + 'NO' + self.color['clear']
@@ -134,7 +135,7 @@ class Evaluate(object):
         if anomalyScore > anomaly_limit:
             print "%10s, %5s, %10s" % (data['timestamp'], predict, evalue)
         else:
-            ok_rate = float(sum(self.ok_ng[-rate_slice:]))/(len(self.ok_ng[-rate_slice:])+1)
+            ok_rate = float(sum(self.ok_ng[-self.rate_slice:]))/(len(self.ok_ng[-self.rate_slice:])+1)
             print "%10s, %5s, %10s, %5.4f, %5.4f" % (data['timestamp'], predict, evalue, ok_rate, anomalyScore)
 
 
@@ -154,51 +155,15 @@ class Evaluate(object):
 
             if res == pred:
                 evalue = self.color['green'] + 'OK' + self.color['clear']
-                self.ok_count[i] += 1
+                self.result[i].append(1)
             else:
                 evalue = self.color['red'] + 'NG' + self.color['clear']
-                self.ng_count[i] += 1
+                self.result[i].append(0)
 
-            ok_rate = float(self.ok_count[i])/(self.ok_count[i] + self.ng_count[i])
+            ok_rate = float(sum(self.result[i][-self.rate_slice:]))/(len(self.result[i][-self.rate_slice:])+1)
             print "%5s, %10s, %5.4f" % (pred, evalue, ok_rate) ,
-        print
 
-
-    # TODO: 現状動かなくなっているから直す.
-    def evaluate(self, before, now, high_pred, low_pred):
-        """
-        2パラメータによるhigh/low予測
-
-        high/low値の予測を想定
-         predict_list = [(high, low), (high, low)....]
-        """
-        res = 'high' if now - before > 0 else 'low'
-        print "%5.2f -> %5.2f, %5s, " % (before, now, res) ,
-
-        for i, pred_data in enumerate(predict_list):
-            # high/low predict
-            if  before< pred_data[1]:
-                pred = 'high'
-            elif  before > pred_data[0]:
-                pred = 'low'
-            else:
-                pred = 'not'
-
-            # evalueate
-            if pred == 'not':
-                evalue = self.color['yellow'] + 'NO' + self.color['clear']
-            elif res == pred:
-                evalue = self.color['green'] + 'OK' + self.color['clear']
-                self.ok_count[i] += 1
-            else:
-                evalue = self.color['red'] + 'NG' + self.color['clear']
-                self.ng_count[i] += 1
-
-            if pred == 'not':
-                print "%5s, %10s" % (pred, evalue)
-            else:
-                ok_rate = float(self.ok_count[i])/(self.ok_count[i] + self.ng_count[i])
-                print "%5s, %10s, %5.4f" % (pred, evalue, ok_rate)
+            self.result[i] = self.result[i][-self.rate_slice:]
         print
 
 
@@ -257,12 +222,6 @@ def runModel(inputFilePath, low_model):
                 tp = low_model._getTPRegion()
                 tp.getSelf().resetSequenceStates()
 
-            # if (counter % 720 == 0) :
-            #     print i, data['timestamp'],
-            #     print "Read %i lines..." % counter
-            #     ep.reset()      # high/low予測結果のリセット.
-            #     counter = 0
-
             # data準備
             data = get_formated_data(row)
             if before_value:
@@ -298,10 +257,10 @@ def binary_option():
     #inputFilePath = "./datasets/usdjpy_2001_2005_ohlc.csv"
     inputFilePath = "./datasets/usdjpy_2006_2007.csv"
 
-    if os.path.exists('./learned_model'):
+    if os.path.exists('./learned_model_direct'):
         print 'read learned_model'
-        low_model  = Model.load('./learned_model/low/')
-        low_model.disableLearning()
+        low_model  = Model.load('./learned_model_direct/low/')
+        #low_model.disableLearning()
 
     else:
         print 'create model ...'
@@ -311,7 +270,7 @@ def binary_option():
     low_model = runModel(inputFilePath, low_model)
 
     print 'pickle dump ...'
-    low_model.save(os.path.abspath('./learned_model/low/'))
+    low_model.save(os.path.abspath('./learned_model_direct/low/'))
 
 
 if __name__ == "__main__":
