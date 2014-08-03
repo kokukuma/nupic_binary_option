@@ -2,13 +2,27 @@ opf_binary_option
 ---
 
 ## モデル
-### 
+### 実測値予想モデル
++ 入力: low_valueの差分
++ 出力: low_valueの差分
+
++ encoder
+  + type: scalar
+  + n: 1000
+  + w: 21
++ reset : 10 step毎
+
+
+### high/low直接予想モデル
++ 入力: open, close, high, low
++ 出力: low_value, low_value_delta, high_low
+
 + encoder
   + type: delta
   + n: 1000
   + w: 21
 + reset : 10 step毎
-+ 予測モデル.
+
 
 
 ## 評価方法
