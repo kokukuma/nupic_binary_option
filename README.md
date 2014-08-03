@@ -27,7 +27,7 @@ nupic_binary_option
   + 重要なパラメータまとめ
 1. [予測をするためのモデル構築](docs/opf_binary_option.md)
   + high/low直接予測
-1.[ベースモデル](docs/opf_experiment.md) 未
+1. [ベースモデル](docs/opf_experiment.md) 未
   + モデルのパラメータ確認
   + 結果, 考察
 1. [パラメータ影響調査](docs/opf_experiment2.md) 未
