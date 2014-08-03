@@ -41,6 +41,7 @@ opf_binary_option
 ### 学習
 + [1回目](result/direct_2001_2005_1.csv)
   + 結果を抜粋
+
    | step  | 時刻                | predict rate | anomaly |
    | ---   | ---                 | ---          | ---     |
    | 6038  | 2001-12-28 20:00:00 | 0.6089       | 1.0000  |
@@ -51,6 +52,7 @@ opf_binary_option
 
 + [2回目](result/direct_2001_2005_2.csv)
   + 結果を抜粋. 1回目とほとんど変わらないように見える.
+
     | step  | 時刻                | predict rate | anomaly |
     | ---   | ---                 | ---          | ---     |
     | 6038  | 2001-12-28 20:00:00 | 0.6519       | 0.4500  |
@@ -72,6 +74,7 @@ opf_binary_option
 ### 汎化
 + [1回目](result/direct_2006_2007_1.csv)
   + 結果を抜粋
+  
    | step  | 時刻                | predict rate | anomaly |
    | ---   | ---                 | ---          | ---     |
    | 6141  | 2006-12-29 21:00:00 | 0.6186       | 0.4500  |
@@ -80,6 +83,7 @@ opf_binary_option
 
 + [2回目](result/direct_2006_2007_2.csv)
   + 結果を抜粋
+
    | step  | 時刻                | predict rate | anomaly |
    | ---   | ---                 | ---          | ---     |
    | 6141  | 2006-12-29 21:00:00 | 0.6255       | 0.3000  |
