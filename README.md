@@ -25,14 +25,14 @@ nupic_binary_option
 1. [OPFの実装把握](docs/opf_code_reading.md)
   + 実装を確認
   + 重要なパラメータまとめ
-1. [ベースモデル](docs/opf_experiment.md) 未
+1. [予測をするためのモデル構築](docs/opf_binary_option.md)
+  + high/low直接予測
+1.[ベースモデル](docs/opf_experiment.md) 未
   + モデルのパラメータ確認
   + 結果, 考察
 1. [パラメータ影響調査](docs/opf_experiment2.md) 未
   + 実装と途中経過の結果を確認し疑問を解消.
   + パラメータの結果に対する影響を把握する.
-1. [予測をするためのモデル構築](docs/opf_binary_option.md)
-  + high/low直接予測
 
 
 
