@@ -292,16 +292,19 @@ def runModel(inputFilePath, low_model):
 
 def binary_option():
     from nupic.frameworks.opf.model import Model
-    inputFilePath = "./datasets/usdjpy_2001_01_ohlc.csv"
-    #inputFilePath = "./datasets/usdjpy_2001_ohlc.csv"
-    #inputFilePath = "./datasets/usdjpy_2001_2005_ohlc.csv"
 
-    print 'create model ...'
-    #low_model  = createModel("low")
+    # inputFilePath = "./datasets/usdjpy_2001_01_ohlc.csv"
+    # inputFilePath = "./datasets/usdjpy_2001_ohlc.csv"
+    #inputFilePath = "./datasets/usdjpy_2001_2005_ohlc.csv"
+    inputFilePath = "./datasets/usdjpy_2006_2007.csv"
 
     if os.path.exists('./learned_model'):
+        print 'read learned_model'
         low_model  = Model.load('./learned_model/low/')
+        low_model.disableLearning()
+
     else:
+        print 'create model ...'
         low_model  = createModel("high_low")
 
     print 'run Model ...'

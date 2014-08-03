@@ -17,12 +17,16 @@ opf_experiment2
 ### delta-encoder-model
 + encoder : delta
 
+### reset実行
+
+
+
 ## 結果
 
 
 ## 考察
 + なぜ, n23-modelにおいて, 予測値が実測値の3,4step前のとなってしまうのか.
 + なぜ, n1000-modelにおいて, 予測値が3つくらいの間でばらついてしまうのか. 
-
++ deltaによる影響.
 
 
